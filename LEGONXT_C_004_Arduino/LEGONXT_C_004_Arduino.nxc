@@ -1,0 +1,37 @@
+//A full description of this module (and many others) can be downloaded at: https://eve_arduino
+
+#define ARDUINO_ADDRESS 0x43
+#define ADDRESS_SEND (ARDUINO_ADDRESS << 1)
+#define ADDRESS_RECV (ADDRESS_SEND + 1)
+#define ARDUINO_PORT  IN_1
+
+string i2cReadString(byte port, byte adr, byte reg, byte cnt)
+{
+  string temp;
+  byte outbuf[];
+  byte cmdbuf[];
+  ArrayBuild(cmdbuf, adr, reg);
+  byte nByteReady = 0;
+  while (I2CStatus(port, nByteReady) ==  STAT_COMM_PENDING)
+  {
+  }
+  Wait (100);
+  if (I2CBytes(port, cmdbuf, cnt, outbuf))
+  {
+    temp = ByteArrayToStr(outbuf);
+    //TextOut(0, LCD_LINE6, temp2, false);
+  }
+  return temp;
+}
+
+
+task main()
+{
+  ClearScreen();
+  SetSensorLowspeed(ARDUINO_PORT);
+  while (true)
+  {
+    Wait (100);
+    TextOut(0, LCD_LINE1, i2cReadString(ARDUINO_PORT, ADDRESS_SEND, 0x42, 15), false);
+  }
+}

@@ -1,0 +1,10 @@
+//A full description of this module (and many others) can be downloaded at: https://eve_arduino
+
+task main()
+{
+ OnFwd(OUT_A, 75);
+ Wait(4000);
+ OnRev(OUT_A, 75);
+ Wait(4000);
+ Off(OUT_A);
+}

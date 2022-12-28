@@ -1,0 +1,11 @@
+//A full description of this module (and many others) can be downloaded at: https://eve_arduino
+
+task main()
+{
+ while (true)
+ {
+   PlayTone(262,400); Wait(500);
+   PlayTone(294,400); Wait(500);
+   PlayTone(330,400); Wait(500);
+ }
+}
